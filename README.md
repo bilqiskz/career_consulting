@@ -1,32 +1,20 @@
-# CodeIgniter 4 Application Starter
+# Career Consulting with Codeigniter 4
+including Myth:Auth authentication and Firebase realtime database
 
-## What is CodeIgniter?
-
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
-
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
-
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+## Requirement
+- PHP 7.2+
+- CodeIgniter 4. Changes in beta-3 require the latest develop branch of CodeIgniter 4 to work correctly (4.0.3 won't do).
+- Myth:Auth Library
 
 ## Installation & updates
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+- Myth:Auth Installation
+> composer require myth/auth
 
 When updating, check the release notes to see if there are any changes you might need to apply
 to your `app` folder. The affected files can be copied or merged from
 `vendor/codeigniter4/framework/app`.
 
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
 
 ## Important Change with index.php
 
