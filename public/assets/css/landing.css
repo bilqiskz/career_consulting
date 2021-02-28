@@ -1,0 +1,205 @@
+/* FONT IMPORT */
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap");
+:root {
+  font-family: "Quicksand", "Raleway";
+  --text-primary: #ececec;
+  --text-secondary: #0f2038;
+  --bg-primary: #8f89b7;
+  --bg-secondary: #c7d7fb;
+  --transition-speed: 600ms;
+}
+
+/* RESPONSIVE */
+/* small screen */
+@media only screen and (max-width: 600px) {
+  .jumbotron {
+    margin-top: 20px;
+  }
+  .jumbotron h1 {
+    text-align: center;
+  }
+  .jumbotron .lead {
+    text-align: center;
+  }
+
+  #tentang-kami img {
+    display: none;
+  }
+  #tentang-kami p {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  #visimisi .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #visimisi .btn {
+    background-color: #c7d7fb;
+    height: 150px;
+    width: 130px;
+    padding: 34px 0 0 0;
+  }
+
+  h2 {
+    font-weight: 700;
+  }
+
+  footer p {
+    font-size: 0.9rem;
+  }
+
+  .reg .bg {
+    width: 90%;
+    padding: 30px;
+  }
+}
+
+/* large screen */
+@media only screen and (min-width: 600px) {
+  h2 {
+    font-weight: 700;
+  }
+  #visimisi .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #visimisi .btn {
+    background-color: #c7d7fb;
+    height: 150px;
+    width: 150px;
+    padding: 38px 0 0 0;
+  }
+
+  .reg .bg {
+    width: 90%;
+    padding: 60px;
+  }
+}
+
+/* super large screen */
+@media only screen and (min-width: 1200px) {
+  .reg .bg {
+    width: 60%;
+    padding: 60px;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Quicksand", "Raleway", sans-serif;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.btn-primary {
+  background-color: #8f89b7;
+}
+
+.text-white {
+  color: #fff;
+}
+
+/* NAVBAR */
+.navbar {
+  padding: 15px 0 15px 0;
+}
+
+nav {
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background-color: #8f89b7;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+nav .btn {
+  background-color: transparent;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.5s;
+}
+
+nav .btn:hover {
+  background-color: #c7d7fb;
+  color: #343434;
+}
+/* JUMBOTRON */
+
+.jumbotron .btn {
+  background-color: #8f89b7;
+  color: #fff;
+  transition: 0.5s;
+  font-weight: 600;
+  border-radius: 30px;
+  width: 200px;
+}
+
+.jumbotron .btn:hover {
+  background-color: #c7d7fb;
+  color: #343434;
+}
+
+.jumbotron .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jumbotron img {
+  width: 100%;
+}
+
+/* TENTANG KAMI */
+#tentang-kami .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#tentang-kami img {
+  width: 150px;
+}
+
+/* VISIMISI */
+
+/* FOOTER */
+footer {
+  background-color: #8f89b7;
+  text-align: center;
+  padding: 25px 0 20px 0;
+  color: #fff;
+}
+
+/* MODAL */
+.modal-body button {
+  margin: 0 0 10px 0;
+  transition: 0.5s;
+}
+
+.modal button:hover {
+  background-color: #c7d7fb;
+  border-color: #c7d7fb;
+  color: #343434;
+}
+
+/* REGIS */
+.reg .bg {
+  border-radius: 30px;
+}
+
+.reg .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg h4 {
+  font-weight: 700;
+}
