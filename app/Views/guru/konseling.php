@@ -2,74 +2,7 @@
 
 
 <?= $this->section('konten'); ?>
-<script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-database.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-analytics.js"></script>
-
-<script>
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    var firebaseConfig = {
-        apiKey: "AIzaSyCOXw2lNIZlTtzqvruzHE9WIX1ICFzLu5E",
-        authDomain: "konsultasi-karir-bk.firebaseapp.com",
-        projectId: "konsultasi-karir-bk",
-        storageBucket: "konsultasi-karir-bk.appspot.com",
-        messagingSenderId: "849646058293",
-        appId: "1:849646058293:web:4e0958af089f3f260c6a7c",
-        measurementId: "G-X7ZBXC2505"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-</script>
-<script>
-    firebase.database().ref("riwayatkonsul").on("child_added", function(snapshot) {
-        var html = "";
-        const message = snapshot.val()
-        const time = snapshot.val().tanggal_berakhir
-
-        // const chatActors = [myName, yourName]
-        // const messageActors = snapshot.val().user
-
-        // Array nya di sort() dulu agar menghindari [A, B] tidak sama dengan [B, A]
-        // chatActors.sort()
-        // messageActors.sort()
-
-        // Tampilkan pesan jika actor sesuai dengan yang ada dalam database
-        // if (time) {
-        // if (chatActors.toString() === messageActors.toString()) {
-        // html += "<ul>"
-        const ref = firebase.database().ref("riwayatkonsul")
-        ref.orderByChild('tanggal_berakhir').on('child_added', snapshot => {
-            console.log(snapshot.val());
-            snapshot.forEach(function(data) {
-                console.log(data.key);
-            })
-        })
-        // if (time) {
-        html += "<li>"
-        html += time + "<br>"
-        html += `message : ${message.message}`
-        html += `sender : ${message.sender}`
-        html += `receiver : ${message.receiver}`
-        html += "</li>"
-        // }
-        // html += "</ul>"
-        // html += "<div class='col-md-2 col-sm-4 pt-2'>";
-        // html += "</div>";
-        // html += "<div class='col-md-10 col-sm-6 pt-3 '>";
-        // html += `<small>${ message.waktu }</small>`;
-        // html += "</p>";
-        // }
-        // }
-        // html += "</li>";
-
-        document.getElementById("messages").innerHTML += html;
-    });
-</script>
 
 <main class="kns bg-white">
     <div class="row mt-4 det-riwayat">
@@ -116,29 +49,20 @@
             </div>
         </form>
     </div>
-
-    <ul id="messages"></ul>
+    <div>asjdaskd</div>
     <?php if (in_groups('guru')) : ?>
         <div class="container mb-5 pb-4">
-            <?php foreach ($siswa as $s) : ?>
+            <?php foreach ($riwayat as $s) : ?>
                 <div class="row mb-2">
                     <div class="col-md-12 kns-konten">
                         <div class="row">
-                            <div class="col-md-2 col-sm-4 pt-2">
-                                <img src="<?= base_url('assets/images/icons/' . $s->user_image); ?>" style="width: 100px;" alt="">
+                            <div class="col-md-11 col-sm-10">
+                                <h5><?= $s->nama_guru; ?></h5>
                             </div>
-                            <div class="col-md-10 col-sm-6 pt-3 ">
-                                <div class="row">
-                                    <div class="col-md-11 col-sm-10">
-                                        <h5><?= $s->fullname; ?></h5>
-                                        <p><?= $s->kelas; ?>-<?= $s->jurusan; ?>-<?= $s->rombel; ?></p>
-                                    </div>
-                                    <div class="col-md-1 col-sm-2 pt-4 float-right">
-                                        <a href="<?= base_url('dashboard/riwayat/' . $s->id); ?>">
-                                            <div class="btn btn-primary float-right">Detail</div>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="col-md-1 col-sm-2 pt-4 float-right">
+                                <a href="<?= base_url('dashboard/riwayat/' . $s->id); ?>">
+                                    <div class="btn btn-primary float-right">Detail</div>
+                                </a>
                             </div>
                         </div>
                     </div>

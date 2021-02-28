@@ -7,12 +7,13 @@ use Myth\Auth\Entities\User;
 
 class Guru extends BaseController
 {
-    protected $db, $builder, $usermodel;
+    protected $db, $builder, $usermodel, $tabel;
     public function __construct()
     {
         $this->usermodel = new UserModel();
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('users');
+        $this->tabel = $this->db->table('konsultasi');
     }
 
     public function index()
@@ -25,7 +26,7 @@ class Guru extends BaseController
         return view('guru/dashboard', $data);
     }
 
-    public function konseling()
+    public function a()
     {
         $grup = $this->usermodel->where('users.nip = ', null);
         $keyword = $this->request->getVar('keyword');
@@ -42,6 +43,40 @@ class Guru extends BaseController
         ];
 
         return view('guru/konseling', $data);
+    }
+
+    public function konseling()
+    {
+        // $grup = $this->usermodel->where('users.nis = ', null);
+        $keyword = $this->request->getVar('keyword');
+
+        if ($keyword) {
+            $this->search($keyword);
+        } else {
+            $userr = $this->usermodel;
+        }
+
+        $data = [
+            'title' => 'Konseling guru',
+        ];
+
+        $this->tabel->select("*");
+        $this->query = $this->tabel->get();
+        $data['riwayat'] = $this->query->getResult();
+
+        return view('dashboard/konseling', $data);
+    }
+
+    public function search($keyword)
+    {
+        $query = [
+            $this->tabel->like('judul', $keyword),
+            $this->tabel->orlike('nama_guru', $keyword),
+            $this->tabel->orlike('status_konsultasi', $keyword),
+            $this->tabel->orlike('kategori', $keyword),
+
+        ];
+        return $query;
     }
 
     public function konsultasi($id)

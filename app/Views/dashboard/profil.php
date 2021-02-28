@@ -37,16 +37,13 @@
                         <input type="Username" class="form-control" name="username" id="inputPassword4" placeholder="username" value="<?= user()->username; ?>">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="tt">tt</label>
-                        <input type="tt" class="form-control" name="tt" id="inputPassword4" placeholder="tt" value="<?= user()->username; ?>">
+                        <label for="exampleInputNis">NIS</label>
+                        <input type="number" class="form-control" id="exampleInpuNis" aria-describedby="NIShelp" placeholder="Masukkan NIS" value="<?= user()->nis; ?>">
                     </div>
                 </div>
 
                 <!-- <button type="submit" class="btn btn-primary mb-3">Simpan Perubahan</button> -->
-                <div class="form-group">
-                    <label for="exampleInputNis">NIS</label>
-                    <input type="number" class="form-control" id="exampleInpuNis" aria-describedby="NIShelp" placeholder="Masukkan NIS" value="<?= user()->nis; ?>">
-                </div>
+
                 <div class="form-group">
                     <label>Nama Lengkap</label>
                     <input type="text" class="form-control" name="fullname" aria-describedby="NIShelp" placeholder="fullname" value="<?= user()->fullname; ?>">
@@ -86,6 +83,7 @@
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"><?= user()->alamat; ?></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                <a class="btn btn-danger" role="button" href="<?= base_url('logout'); ?>">logout</a>
             </div>
         </div>
         <!-- <div class="row">
@@ -110,7 +108,6 @@
             </div>
         </div> -->
     </form>
-    <a href="<?= base_url('logout'); ?>">logout</button>
 </main>
 
 <script>

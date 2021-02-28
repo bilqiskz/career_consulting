@@ -52,6 +52,7 @@ $routes->get('/daftarguru', 'Dashboard::daftarguru', ['filter' => 'role:user']);
 $routes->get('/kategorikonsul', 'Dashboard::kategorikonsul', ['filter' => 'role:user']);
 $routes->get('/profil', 'Dashboard::profil', ['filter' => 'role:user']);
 $routes->get('/konsul', 'Dashboard::konsul', ['filter' => 'role:user']);
+$routes->get('/newkonsul', 'Dashboard::newkonsul', ['filter' => 'role:user']);
 $routes->get('/update', 'Dashboard::update',);
 
 //GURU

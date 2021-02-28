@@ -27,32 +27,25 @@
 
     if (in_groups('user')) : ?>
         <div class="container mb-5 pb-4">
-            <?php foreach ($guru as $guru) : ?>
-                <div class="row mb-2">
-                    <div class="col-md-12  kns-konten">
-                        <div class="row">
-                            <div class="col-md-2 col-sm-4 pt-2">
-                                <img src="<?= base_url('assets/images/icons/' . $guru->user_image); ?>" style="width: 100px;" alt="">
-                            </div>
-                            <div class="col-md-10 col-sm-6 pt-3 ">
-                                <div class="row">
-                                    <div class="col-md-11 col-sm-10">
-                                        <h5><?= $guru->fullname; ?></h5>
-                                        <p>rating yang diberikan : </p>
+            <?php foreach ($riwayat as $riwayat) : ?>
+                <div class="kns-konten">
+                    <div class="row mb-2">
+                        <div class="col-md-11 col-sm-10">
+                            <p class="pt-3"><small>Nama Guru : <?= $riwayat->nama_guru; ?></small></p>
+                            <h4 class="font-weight-bold"><?= $riwayat->judul; ?></h4>
+                            <p><i class="fa fa-folder-open pr-3"></i>Kategori : <?= $riwayat->kategori; ?></p>
+                            <!-- <p>rating yang diberikan : </p>
                                         <p class="fa fa-star"></p>
                                         <p class="fa fa-star"></p>
                                         <p class="fa fa-star"></p>
                                         <p class="fa fa-star"></p>
-                                        <p class="fa fa-star"></p><br>
-                                        <p class="badge badge-success">selesai</p>
-                                    </div>
-                                    <div class="col-md-1 col-sm-2 pt-4 float-right">
-                                        <a href="">
-                                            <div class="btn btn-primary float-right">Detail</div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                                        <p class="fa fa-star"></p><br> -->
+                            <p class="badge badge-success">selesai</p>
+                        </div>
+                        <div class="col-md-1 col-sm-2 pt-5 float-right">
+                            <a href="">
+                                <div class="btn btn-primary float-right">Detail</div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -61,9 +54,9 @@
     <?php endif; ?>
 
 
-    <div class="container pagi">
-        <?= $pager->links('users', 'user_pagination'); ?>
-    </div>
+    <!-- <div class="container pagi">
+        < $pager->links('users', 'user_pagination'); ?>
+    </div> -->
     <a class="float bg-success" data-toggle="modal" data-target="#konsulmodal">
         <div class="my-float">+ Tambah konsul</div>
     </a>

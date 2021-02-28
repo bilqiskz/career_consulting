@@ -42,9 +42,20 @@ Website: http://emilcarlsson.se/
 </script>
 <script>
     var myName = "<?= user()->username; ?>";
-    // TODO: $they sama yourName ganti namanya jadi receiver atau apalah biar gampang
     var yourName = "<?= $they->username ?>";
-    // var user = array($yourName, myName);
+    var users = [yourName, myName];
+    var idKonsultasi = "<?= $konsultasi->id_konsultasi ?>"
+
+    function initializeMessage() {
+        //Bikin kondisi jika firebase.database().ref("messages").child(idKonsultasi) udah ada, jangan di set
+        const userMessage = firebase.database().ref("messages");
+        userMessage.child(idKonsultasi).set({
+            id: idKonsultasi,
+            users,
+            messages: []
+        });
+    }
+    initializeMessage();
 
     function sendMessage() {
         //get message
@@ -56,12 +67,12 @@ Website: http://emilcarlsson.se/
         }
         $('.message-input input').val(null);
         //save in database
-        firebase.database().ref("messages").push().set({
+        firebase.database().ref(`messages/${idKonsultasi}/messages`).push().set({
             "sender": myName,
             "receiver": yourName,
             "message": message,
             "waktu": waktu,
-            "user": [myName, yourName]
+            users,
         });
 
         return false;
@@ -69,40 +80,29 @@ Website: http://emilcarlsson.se/
     }
 
     //listen for incoming messages
-    firebase.database().ref("messages").on("child_added", function(snapshot) {
+    firebase.database().ref(`messages/${idKonsultasi}/messages`).on("child_added", function(snapshot) {
         var html = "";
         //give each message an unique id
-        const message = snapshot.val()
-
-        const chatActors = [myName, yourName]
-        const messageActors = snapshot.val().user
-        // const messageActors = 'ini akan jadi error'
-
-        // Array nya di sort() dulu agar menghindari [A, B] tidak sama dengan [B, A]
-        chatActors.sort()
-        messageActors.sort()
+        const message = snapshot.val();
 
         // Tampilkan pesan jika actor sesuai dengan yang ada dalam database
-        if (chatActors.toString() === messageActors.toString()) {
-            if (message.sender === myName) {
-                html += "<li class='replies'>";
-                html += "<img src='<?= base_url(); ?>/assets/images/siswa/<?= user()->user_image; ?>'/>";
-                html += "<p>";
-                html += `${ message.sender } : <br>${ message.message }`;
-                // TODO: gabungin string pake Template Literal semua biar gampang dibacanya
-                // Cara lain buat gabungin string, namanya Template Literal
-                html += `<small>${ message.waktu }</small>`;
-                html += "</p>";
-            } else if (message.sender === yourName) {
-                html += "<li class='sent'>";
-                html += "<img src='<?= base_url('assets/images/guru/' . $they->user_image); ?>'/>";
-                html += "<p>";
-                html += `${message.sender} : <br>${message.message}`;
-                html += "<small>" + snapshot.val().waktu + "</small>";
-                html += "</p>";
-            }
+        if (message.sender === myName) {
+            html += "<li class='replies'>";
+            html += "<img src='<?= base_url(); ?>/assets/images/siswa/<?= user()->user_image; ?>'/>";
+            html += "<p>";
+            html += `${ message.sender } : <br>${ message.message }`;
+            // TODO: gabungin string pake Template Literal semua biar gampang dibacanya
+            // Cara lain buat gabungin string, namanya Template Literal
+            html += `<small>${ message.waktu }</small>`;
+            html += "</p>";
+        } else if (message.sender === yourName) {
+            html += "<li class='sent'>";
+            html += "<img src='<?= base_url('assets/images/guru/' . $they->user_image); ?>'/>";
+            html += "<p>";
+            html += `${message.sender} : <br>${message.message}`;
+            html += "<small>" + snapshot.val().waktu + "</small>";
+            html += "</p>";
         }
-
         html += "</li>";
 
         //show delete button

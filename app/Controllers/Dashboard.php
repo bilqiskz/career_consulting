@@ -27,39 +27,38 @@ class Dashboard extends BaseController
 
     public function konseling()
     {
-        $grup = $this->usermodel->where('users.nis = ', null);
+        // $grup = $this->usermodel->where('users.nis = ', null);
         $keyword = $this->request->getVar('keyword');
+
         if ($keyword) {
-            $this->usermodel->search($keyword);
+            $this->search($keyword);
         } else {
             $userr = $this->usermodel;
         }
 
         $data = [
-            'title' => 'Konseling guru',
-            'guru' => $grup->paginate(5, 'users'),
-            'pager' => $this->usermodel->pager,
+            'title' => 'Konseling siswa',
+            // 'guru' => $grup->paginate(5, 'users'),
+            // 'pager' => $this->usermodel->pager,
         ];
+
+        $this->tabel2->select("*");
+        $this->query = $this->tabel2->get();
+        $data['riwayat'] = $this->query->getResult();
 
         return view('dashboard/konseling', $data);
     }
 
-    public function masukan()
+    public function search($keyword)
     {
-        $kategori = $this->request->getPost('opt');
-        $judul = $this->request->getPost('judul');
-        $masalah = $this->request->getPost('masalah');
-        $time = date('Y-m-d H:i:s');
-        $data2 = array(
-            'id' => user()->id,
-            'nis' => user()->nis,
-            'kategori' => $kategori,
-            'judul' => $judul,
-            'konsul' => $masalah,
-            'tanggal_mulai' => $time,
-        );
+        $query = [
+            $this->tabel2->like('judul', $keyword),
+            $this->tabel2->orlike('nama_guru', $keyword),
+            $this->tabel2->orlike('status_konsultasi', $keyword),
+            $this->tabel2->orlike('kategori', $keyword),
 
-        $this->tabel2->insert($data2);
+        ];
+        return $query;
     }
 
     public function notifikasi()
@@ -82,22 +81,28 @@ class Dashboard extends BaseController
         return view('dashboard/profil', $data);
     }
 
-    public function konsultasi($id)
+    public function konsultasi($idKonsultasi)
     {
         $data = [
             'title' => 'Konsultasi Baru',
-            'id' => $id,
+            'id' => $idKonsultasi,
         ];
 
-        $this->tabel->select('users.id as userid, nip, username, fullname, user_image');
-        $this->tabel->where('users.id', $id);
-        $query = $this->tabel->get();
+        $this->tabel2->select('id, id_guru, id_konsultasi');
+        $this->tabel2->where('id_konsultasi', $idKonsultasi);
+        $query = $this->tabel2->get();
 
-        $data['they'] = $query->getRow();
+        $konsultasi = $query->getRow();
+        $data['konsultasi'] = $konsultasi;
 
-        if (empty($data['they'])) {
+        if (empty($data['konsultasi'])) {
             return redirect()->back();
         }
+
+        $this->tabel->select('id, username, fullname, user_image');
+        $this->tabel->where('id', $konsultasi->id_guru);
+        $query2 = $this->tabel->get();
+        $data['they'] = $query2->getRow();
 
         return view('dashboard/konsultasi', $data);
     }
@@ -159,16 +164,47 @@ class Dashboard extends BaseController
         return view('dashboard/daftarguru', $data);
     }
 
-    public function kategorikonsul($id)
+    public function kategorikonsul($idGuru)
     {
         $data = [
             'title' => 'Pilih Kategori Konsultasi',
-            // 'siswa' => $grup->findAll(),
-            'id' => $id
+            'id' => $idGuru
         ];
+        $this->tabel->select('id, nip, username, fullname, user_image');
+        $this->tabel->where('id', $idGuru);
+        $query = $this->tabel->get();
 
+        $data['guru'] = $query->getRow();
 
         return view('dashboard/kategorikonsul', $data);
+    }
+
+    public function newkonsul($idGuru)
+    {
+        // ini buat konsultasi
+        $kategori = $this->request->getPost('opt');
+        $judul = $this->request->getPost('judul');
+        $masalah = $this->request->getPost('masalah');
+        $nama = $this->request->getPost('name');
+        $time = date('Y-m-d H:i:s');
+        $data2 = array(
+            'id' => user()->id,
+            'id_guru' => $idGuru,
+            'nis' => user()->nis,
+            'nama_guru' => $nama,
+            'kategori' => $kategori,
+            'judul' => $judul,
+            'konsul' => $masalah,
+            'tanggal_mulai' => $time,
+        );
+        $this->tabel2->insert($data2);
+
+        // ini ambil id konsultasi
+        $this->tabel->select('id_konsultasi');
+        $query = $this->tabel2->get();
+
+        $konsultasi = $query->getLastRow();
+        return redirect()->to('/dashboard/konsultasi/' . $konsultasi->id_konsultasi);
     }
 
     //--------------------------------------------------------------------

@@ -53,6 +53,7 @@
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"><?= user()->alamat; ?></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                <a class="btn btn-danger" role="button" href="<?= base_url('logout'); ?>">logout</a>
             </div>
         </div>
         <!-- <div class="row">
@@ -77,7 +78,6 @@
             </div>
         </div> -->
     </form>
-    <a href="<?= base_url('logout'); ?>">logout</button>
 </main>
 
 <script>

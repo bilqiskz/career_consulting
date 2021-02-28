@@ -23,7 +23,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Foto</th>
                     <th scope="col">Nama Lengkap</th>
-                    <th scope="col">Rating</th>
+                    <!-- <th scope="col">Rating</th> -->
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -34,13 +34,13 @@
                         <th class="align-middle" scope="row"><?= $i++; ?></th>
                         <td class="align-middle"><img src="<?= base_url('assets/images/guru/' . $s->user_image); ?>" alt=""></td>
                         <td class="align-middle"><?= $s->fullname; ?></td>
-                        <td class="align-middle">
+                        <!-- <td class="align-middle">
                             <p class="fa fa-star"></p>
                             <p class="fa fa-star"></p>
                             <p class="fa fa-star"></p>
                             <p class="fa fa-star"></p>
                             <p class="fa fa-star"></p>
-                        </td>
+                        </td> -->
                         <td class="align-middle"><a href="<?= base_url('dashboard/konsultasi/' . $s->id); ?>" class="btn btn-success">Mulai Konseling</a>
                     </tr>
                 <?php endforeach; ?>
